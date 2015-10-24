@@ -27,6 +27,23 @@ export default class Mapper extends Leaflet.Class {
     tiles.addTo(map);
     map.setView([52.51, 13.37], 13);
     map.zoomControl.setPosition('bottomright');
+
+    map.on('click', (event) => this.setMarker(map, event.latlng));
+
     return map;
+  }
+
+  setMarker(map, pos) {
+    const icon = Leaflet.icon({
+      iconUrl: require('leaflet/dist/images/marker-icon.png'),
+      iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+      iconSize: [25, 41],
+      shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+      shadowRetinaUrl: require('leaflet/dist/images/marker-shadow.png'),
+      shadowSize: [41, 41],
+    });
+
+    const marker = Leaflet.marker(pos, {icon: icon});
+    marker.addTo(map);
   }
 }
